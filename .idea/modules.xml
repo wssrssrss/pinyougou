@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/pinyougoucommon/pinyougoucommon.iml" filepath="$PROJECT_DIR$/pinyougoucommon/pinyougoucommon.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pinyougoudao/pinyougoudao.iml" filepath="$PROJECT_DIR$/pinyougoudao/pinyougoudao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pinyougoumanager/pinyougoumanager.iml" filepath="$PROJECT_DIR$/pinyougoumanager/pinyougoumanager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pinyougouparent.iml" filepath="$PROJECT_DIR$/pinyougouparent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pinyougoupojo/pinyougoupojo.iml" filepath="$PROJECT_DIR$/pinyougoupojo/pinyougoupojo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pinyougousellergoodsinterface/pinyougousellergoodsinterface.iml" filepath="$PROJECT_DIR$/pinyougousellergoodsinterface/pinyougousellergoodsinterface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pinyougousellergoodsservice/pinyougousellergoodsservice.iml" filepath="$PROJECT_DIR$/pinyougousellergoodsservice/pinyougousellergoodsservice.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pinyougoushop/pinyougoushop.iml" filepath="$PROJECT_DIR$/pinyougoushop/pinyougoushop.iml" />
+    </modules>
+  </component>
+</project>
