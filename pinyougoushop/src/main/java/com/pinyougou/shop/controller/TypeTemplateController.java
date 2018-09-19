@@ -1,13 +1,13 @@
 package com.pinyougou.shop.controller;
 import java.util.List;
+import java.util.Map;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.pinyougou.pojo.TbSeller;
-import com.pinyougou.sellergoods.service.SellerService;
+import com.pinyougou.pojo.TbTypeTemplate;
+import com.pinyougou.sellergoods.service.TypeTemplateService;
 
 import entity.PageResult;
 import entity.Result;
@@ -17,19 +17,19 @@ import entity.Result;
  *
  */
 @RestController
-@RequestMapping("/seller")
-public class SellerController {
+@RequestMapping("/typeTemplate")
+public class TypeTemplateController {
 
 	@Reference
-	private SellerService sellerService;
+	private TypeTemplateService typeTemplateService;
 	
 	/**
 	 * 返回全部列表
 	 * @return
 	 */
 	@RequestMapping("/findAll")
-	public List<TbSeller> findAll(){			
-		return sellerService.findAll();
+	public List<TbTypeTemplate> findAll(){			
+		return typeTemplateService.findAll();
 	}
 	
 	
@@ -39,23 +39,18 @@ public class SellerController {
 	 */
 	@RequestMapping("/findPage")
 	public PageResult  findPage(int page,int rows){			
-		return sellerService.findPage(page, rows);
+		return typeTemplateService.findPage(page, rows);
 	}
 	
 	/**
 	 * 增加
-	 * @param seller
+	 * @param typeTemplate
 	 * @return
 	 */
 	@RequestMapping("/add")
-	public Result add(@RequestBody TbSeller seller){
-		//密码加密
-		BCryptPasswordEncoder passwordEncoder=new BCryptPasswordEncoder();
-		String password = passwordEncoder.encode(seller.getPassword());//加密
-		seller.setPassword(password);
-		
+	public Result add(@RequestBody TbTypeTemplate typeTemplate){
 		try {
-			sellerService.add(seller);
+			typeTemplateService.add(typeTemplate);
 			return new Result(true, "增加成功");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -65,13 +60,13 @@ public class SellerController {
 	
 	/**
 	 * 修改
-	 * @param seller
+	 * @param typeTemplate
 	 * @return
 	 */
 	@RequestMapping("/update")
-	public Result update(@RequestBody TbSeller seller){
+	public Result update(@RequestBody TbTypeTemplate typeTemplate){
 		try {
-			sellerService.update(seller);
+			typeTemplateService.update(typeTemplate);
 			return new Result(true, "修改成功");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -85,8 +80,8 @@ public class SellerController {
 	 * @return
 	 */
 	@RequestMapping("/findOne")
-	public TbSeller findOne(String id){
-		return sellerService.findOne(id);		
+	public TbTypeTemplate findOne(Long id){
+		return typeTemplateService.findOne(id);		
 	}
 	
 	/**
@@ -95,9 +90,9 @@ public class SellerController {
 	 * @return
 	 */
 	@RequestMapping("/delete")
-	public Result delete(String [] ids){
+	public Result delete(Long [] ids){
 		try {
-			sellerService.delete(ids);
+			typeTemplateService.delete(ids);
 			return new Result(true, "删除成功"); 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -113,8 +108,13 @@ public class SellerController {
 	 * @return
 	 */
 	@RequestMapping("/search")
-	public PageResult search(@RequestBody TbSeller seller, int page, int rows  ){
-		return sellerService.findPage(seller, page, rows);		
+	public PageResult search(@RequestBody TbTypeTemplate typeTemplate, int page, int rows  ){
+		return typeTemplateService.findPage(typeTemplate, page, rows);		
+	}
+	
+	@RequestMapping("/findSpecList")
+	public List<Map> findSpecList(Long id){
+		return typeTemplateService.findSpecList(id);
 	}
 	
 }

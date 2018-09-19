@@ -10,28 +10,28 @@ import utils.FastDFSClient;
 
 @RestController
 public class UploadController {
+	
+	@Value("${FILE_SERVER_URL}")
+	private String file_server_url;
 
-    @Value("${FILE_SERVER_URL}")
-    private String file_server_url;
-
-    @RequestMapping("/upload")
-    public Result upload(MultipartFile file){
-
-        String originalFilename = file.getOriginalFilename();//获取文件名
-        String extName=originalFilename.substring( originalFilename.lastIndexOf(".")+1);//得到扩展名
-
-        try {
-            utils.FastDFSClient client=new FastDFSClient("classpath:config/fdfs_client.conf");
-            String fileId = client.uploadFile(file.getBytes(), extName);
-            String url=file_server_url+fileId;//图片完整地址
-            return new Result(true, url);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new Result(false, "上传失败");
-        }
-
-    }
-
-
+	@RequestMapping("/upload")
+	public Result upload(MultipartFile file){
+		
+		String originalFilename = file.getOriginalFilename();//获取文件名
+		String extName=originalFilename.substring( originalFilename.lastIndexOf(".")+1);//得到扩展名
+		
+		try {
+			utils.FastDFSClient client=new FastDFSClient("classpath:config/fdfs_client.conf");
+			String fileId = client.uploadFile(file.getBytes(), extName);
+			String url=file_server_url+fileId;//图片完整地址
+			return new Result(true, url);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new Result(false, "上传失败");
+		}
+		
+	}
+	
+	
 }
