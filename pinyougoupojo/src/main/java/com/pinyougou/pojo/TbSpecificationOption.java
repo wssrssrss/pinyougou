@@ -42,4 +42,5 @@ public class TbSpecificationOption implements Serializable{
     public void setOrders(Integer orders) {
         this.orders = orders;
     }
+
 }

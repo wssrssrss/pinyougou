@@ -118,7 +118,7 @@ public class ItemCatController {
 	 */
 	@RequestMapping("/findByParentId")
 	public List<TbItemCat> findByParentId(Long parentId){
-		return itemCatService.findByPartentId(parentId);
+		return itemCatService.findByParentId(parentId);
 	}
 
 

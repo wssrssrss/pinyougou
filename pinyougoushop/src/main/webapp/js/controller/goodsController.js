@@ -1,5 +1,5 @@
  //控制层 
-app.controller('goodsController' ,function($scope,$controller   ,goodsService,uploadService,itemCatService,typeTemplateService){	
+app.controller('goodsController' ,function($scope,$controller ,$location  ,goodsService,uploadService,itemCatService,typeTemplateService){
 	
 	$controller('baseController',{$scope:$scope});//继承
 	
@@ -23,18 +23,43 @@ app.controller('goodsController' ,function($scope,$controller   ,goodsService,up
 	}
 	
 	//查询实体 
-	$scope.findOne=function(id){				
+	$scope.findOne=function(){
+		var id =$location.search()['id'];
+
+		if (id==null){
+			return;
+		}
+		//商品列表
 		goodsService.findOne(id).success(
 			function(response){
-				$scope.entity= response;					
+				$scope.entity= response;
+				//富文本编辑框内容
+				editor.html($scope.entity.goodsDesc.introduction);
+				//图片
+				$scope.entity.goodsDesc.itemImages=JSON.parse($scope.entity.goodsDesc.itemImages);
+
+				//扩展属性
+				$scope.entity.goodsDesc.customAttributeItems=JSON.parse($scope.entity.goodsDesc.customAttributeItems);
+
+				//规格属性
+				$scope.entity.goodsDesc.specificationItems=JSON.parse($scope.entity.goodsDesc.specificationItems);
+
+				//SKU属性
+				for(var i =0;i<$scope.entity.itemList.length;i++){
+
+					$scope.entity.itemList[i].spec=JSON.parse($scope.entity.itemList[i].spec);
+				}
+
 			}
 		);				
 	}
 	
 	//保存 
-	$scope.save=function(){				
-		var serviceObject;//服务层对象  				
-		if($scope.entity.id!=null){//如果有ID
+	$scope.save=function(){
+        $scope.entity.goodsDesc.introduction=editor.html();
+
+        var serviceObject;//服务层对象
+		if($scope.entity.goods.id!=null){//如果有ID
 			serviceObject=goodsService.update( $scope.entity ); //修改  
 		}else{
 			serviceObject=goodsService.add( $scope.entity  );//增加 
@@ -43,7 +68,8 @@ app.controller('goodsController' ,function($scope,$controller   ,goodsService,up
 			function(response){
 				if(response.success){
 					//重新查询 
-		        	$scope.reloadList();//重新加载
+                    alert("修改成功");
+                    location.href='goods.html';
 				}else{
 					alert(response.message);
 				}
@@ -51,22 +77,7 @@ app.controller('goodsController' ,function($scope,$controller   ,goodsService,up
 		);				
 	}
 	
-	//增加商品 
-	$scope.add=function(){			
-		$scope.entity.goodsDesc.introduction=editor.html();
-		
-		goodsService.add( $scope.entity  ).success(
-			function(response){
-				if(response.success){
-					alert("新增成功");
-					$scope.entity={};
-					editor.html("");//清空富文本编辑器
-				}else{
-					alert(response.message);
-				}
-			}		
-		);				
-	}
+
 	
 	 
 	//批量删除 
@@ -174,7 +185,11 @@ app.controller('goodsController' ,function($scope,$controller   ,goodsService,up
 								
 				$scope.typeTemplate.brandIds= JSON.parse($scope.typeTemplate.brandIds);//品牌列表类型转换
 				//扩展属性
-				$scope.entity.goodsDesc.customAttributeItems= JSON.parse($scope.typeTemplate.customAttributeItems);
+				//如果为空就增加
+				if ($location.search()['id']==null){
+                    $scope.entity.goodsDesc.customAttributeItems= JSON.parse($scope.typeTemplate.customAttributeItems);
+
+                }
 			}
 		);
 		//读取规格
@@ -236,5 +251,40 @@ app.controller('goodsController' ,function($scope,$controller   ,goodsService,up
 		return newList;
 	}
 	
-	
+	$scope.status=['未审核','已审核','审核未通过','已关闭']//设置状态
+
+
+	$scope.itemCatList=[];
+	//查询商品
+	$scope.findItemCatList=function () {
+		itemCatService.findAll().success(
+			function (response) {
+				for(var i =0;i<response.length;i++){
+
+					$scope.itemCatList[response[i].id]=response[i].name;
+				}
+
+            }
+
+		);
+    }
+
+    $scope.checkAttributeValue=function (specName,optionName) {
+
+		var items=$scope.entity.goodsDesc.specificationItems;
+
+		var object =$scope.searchObjectByKey(items,'attributeName',specName);
+
+		if (object==null){
+
+			return false;
+		}else {
+			if (object.attributeValue.indexOf(optionName)>=0){
+				return true;
+			}else {
+
+				return false;
+			}
+		}
+    }
 });	

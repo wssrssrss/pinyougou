@@ -3,6 +3,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.pinyougou.pojo.TbSpecification;
+import com.pinyougou.pojo.TbSpecificationOption;
 import com.pinyougou.pojogroup.Specification;
 
 import entity.PageResult;
@@ -18,26 +19,27 @@ public interface SpecificationService {
 	 * @return
 	 */
 	public List<TbSpecification> findAll();
-
-
+	
+	
 	/**
 	 * 返回分页列表
 	 * @return
 	 */
 	public PageResult findPage(int pageNum,int pageSize);
-
-
+	
+	
 	/**
 	 * 增加
+	 * @param specification
 	 */
 	public void add(Specification specification);
-
-
+	
+	
 	/**
 	 * 修改
 	 */
 	public void update(Specification specification);
-
+	
 
 	/**
 	 * 根据ID获取实体
@@ -45,8 +47,8 @@ public interface SpecificationService {
 	 * @return
 	 */
 	public Specification findOne(Long id);
-
-
+	
+	
 	/**
 	 * 批量删除
 	 * @param ids
@@ -60,8 +62,8 @@ public interface SpecificationService {
 	 * @return
 	 */
 	public PageResult findPage(TbSpecification specification, int pageNum,int pageSize);
-
-
+	
+	
 	public List<Map> selectOptionList();
-
+	
 }

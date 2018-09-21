@@ -4,7 +4,7 @@ import com.pinyougou.pojo.TbItemCat;
 
 import entity.PageResult;
 /**
- * 服务层接口
+ * 商品分类服务层接口
  * @author Administrator
  *
  */
@@ -21,7 +21,7 @@ public interface ItemCatService {
 	 * 返回分页列表
 	 * @return
 	 */
-	public PageResult findPage(int pageNum, int pageSize);
+	public PageResult findPage(int pageNum,int pageSize);
 	
 	
 	/**
@@ -48,7 +48,7 @@ public interface ItemCatService {
 	 * 批量删除
 	 * @param ids
 	 */
-	public void delete(Long[] ids);
+	public void delete(Long [] ids);
 
 	/**
 	 * 分页
@@ -56,13 +56,13 @@ public interface ItemCatService {
 	 * @param pageSize 每页记录数
 	 * @return
 	 */
-	public PageResult findPage(TbItemCat itemCat, int pageNum, int pageSize);
-
-
-
-	/*
-	* 根据Id查看下一级分类
-	* */
-
-	public List<TbItemCat> findByPartentId(Long parentId);
+	public PageResult findPage(TbItemCat itemCat, int pageNum,int pageSize);
+	
+	/**
+	 * 根据上级ID查询商品分类列表
+	 * @param parentId
+	 * @return
+	 */
+	public List<TbItemCat> findByParentId(Long parentId);
+	
 }

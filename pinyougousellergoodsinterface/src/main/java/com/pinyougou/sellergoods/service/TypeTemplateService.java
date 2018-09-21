@@ -17,26 +17,26 @@ public interface TypeTemplateService {
 	 * @return
 	 */
 	public List<TbTypeTemplate> findAll();
-
-
+	
+	
 	/**
 	 * 返回分页列表
 	 * @return
 	 */
 	public PageResult findPage(int pageNum,int pageSize);
-
-
+	
+	
 	/**
 	 * 增加
-	 */
+	*/
 	public void add(TbTypeTemplate typeTemplate);
-
-
+	
+	
 	/**
 	 * 修改
 	 */
 	public void update(TbTypeTemplate typeTemplate);
-
+	
 
 	/**
 	 * 根据ID获取实体
@@ -44,8 +44,8 @@ public interface TypeTemplateService {
 	 * @return
 	 */
 	public TbTypeTemplate findOne(Long id);
-
-
+	
+	
 	/**
 	 * 批量删除
 	 * @param ids
@@ -59,8 +59,8 @@ public interface TypeTemplateService {
 	 * @return
 	 */
 	public PageResult findPage(TbTypeTemplate typeTemplate, int pageNum,int pageSize);
-
+	
 
 	public List<Map> findSpecList(Long id);
-
+	
 }

@@ -46,10 +46,9 @@ public class SellerServiceImpl implements SellerService {
 	 * 增加
 	 */
 	@Override
-	public void add(TbSeller seller) {
-
-		seller.setStatus("0");
-		seller.setCreateTime(new Date());
+	public void add(TbSeller seller) {		
+		seller.setStatus("0");//状态
+		seller.setCreateTime(new Date());//申请日期
 		sellerMapper.insert(seller);		
 	}
 
@@ -163,16 +162,13 @@ public class SellerServiceImpl implements SellerService {
 		Page<TbSeller> page= (Page<TbSeller>)sellerMapper.selectByExample(example);		
 		return new PageResult(page.getTotal(), page.getResult());
 	}
-/*
-* 更改状态
-* */
 
 	@Override
 	public void updateStatus(String sellerId, String status) {
+		
 		TbSeller seller = sellerMapper.selectByPrimaryKey(sellerId);
 		seller.setStatus(status);
 		sellerMapper.updateByPrimaryKey(seller);
-
 	}
-
+	
 }
